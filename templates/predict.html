@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TRY</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Comfortaa|Roboto:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+
+		$(document).ready(function() {
+
+		    $('#btnPredict').click(function() {
+		        event.preventDefault();
+		        var form_data = new FormData($('#formUploadImage')[0]);
+		        $.ajax({
+		            type: 'POST',
+		            url: '/predict',
+		            data: form_data,
+		            contentType: false,
+		            processData: false,
+		            dataType: 'json'
+		        }).done(function(data, textStatus, jqXHR){
+		            $('#lblPrediction').text(data["prediction"]);
+		            console.log(data["prediction"]);
+		            // alert(data["prediction"])
+		        }).fail(function(data){
+		        	$("#errorModal").modal({show:true});
+		            // alert("ERROR");
+		        });
+		    });
+        }); 
+	</script>
+
+	<style type="text/css">
+		html, body {
+		  height: 100%;
+		  margin: 0;
+		}
+
+		body {
+		  /*-webkit-align-items: center;*/
+		  /*-ms-flex-align: center;*/
+		  /*align-items: center;*/
+		  background: #03a9f4;
+		  /*background-image: linear-gradient(to bottom left, #03a9f4, #59B9C5);*/
+		  /*display: -webkit-flex;*/
+		  /*display: flex;*/
+		  /*font-family: "Bitter", serif;*/
+		  overflow: hidden;
+		}
+
+		/* general form styling */
+		.container {
+		  margin: 0 auto;
+		}
+		h1 {
+		  color: #fff;
+		  font-size: 2.5em;
+		  text-shadow: 3px 2px 0 #03a9f4, 6px 5px 0 rgba(0, 0, 0, .15);
+		}
+
+		.lytUploadImage{
+			width: 224px;
+			height: 224px;
+			background-color: #e0e0e0;
+			border-radius: 10px;
+			margin-top: 20px;
+		}
+
+		.btnUpload{
+			outline: none;
+			width: 50px;
+			height: 50px;
+			background-color: #e0e0e0;
+			margin-top: 5px;
+			border: 3px solid white;
+			border-radius: 30px;
+		}		
+		.btnUpload:hover{
+			outline: none;
+			width: 50px;
+			height: 50px;
+			background-color: #fff;
+			margin-top: 5px;
+			border: 3px solid white;
+			border-radius: 30px;
+		}		
+		.btnUpload:active{
+			outline: none;
+			width: 50px;
+			height: 50px;
+			background-color: #e0e0e0;
+			margin-top: 5px;
+			border: 3px solid white;
+			border-radius: 30px;
+		}
+		#lblPrediction{
+			outline: none;
+			width: 15%;
+			height: 50px;
+			margin-left: 20px; 
+			margin-right: 20px;
+			margin-top: 10px;
+			background-color: #F1D302;
+			border-radius: 30px 30px 30px 30px;
+			border: 0px;
+			color: #000;
+			font-family: "Comfortaa", sans-serif;
+			font-weight: bold;
+		}
+		#btnPredict{
+			outline: none;
+			width: 15%;
+			height: 50px;
+			margin-left: 20px; 
+			margin-right: 20px;
+			margin-bottom: 10px;
+			opacity: 0.5;
+			background-color: #000;
+			border-radius: 30px 30px 30px 30px;
+			border: 0px;
+			color: white;
+			font-family: "Comfortaa", sans-serif;
+			/*font-weight: bold;*/
+		}
+		#btnPredict:hover{
+			outline: none;
+			width: 15%;
+			height: 50px;
+			margin-left: 20px; 
+			margin-right: 20px;
+			margin-bottom: 10px;
+			opacity: 0.6;
+			background-color: #000;
+			border-radius: 30px 30px 30px 30px;
+			border: 0px;
+			color: white;
+			font-family: "Comfortaa", sans-serif;
+			/*font-weight: bold;*/
+		}
+		#btnPredict:active{
+			outline: none;
+			width: 15%;
+			height: 50px;
+			margin-left: 20px; 
+			margin-right: 20px;
+			margin-bottom: 10px;
+			opacity: 0.5;
+			background-color: #000;
+			border-radius: 30px 30px 30px 30px;
+			border: 0px;
+			color: white;
+			font-family: "Comfortaa", sans-serif;
+			/*font-weight: bold;*/
+		}
+		.footer {
+		   position: fixed;
+		   left: 0;
+		   bottom: 0;
+		   width: 100%;
+		   /*background-color: red;*/
+		   color: white;
+		   text-align: center;
+		}
+		#lblFooter{
+			width: 400px;
+			/*margin: 10px;*/
+			opacity: 0.7;/*
+			background-color: #e0e0e0;*/
+			border-radius: 30px 30px 30px 30px;
+			color: black;
+			text-align: center;
+			font-size: 12px;
+			font-family: "Comfortaa", sans-serif;
+		}
+
+
+		input.file {
+		  display: inline-block;
+		  width: 50px;
+		  padding: 50px 0 0 0;
+		  height: 50px;
+		  overflow: hidden;
+		  -webkit-box-sizing: border-box;
+		  -moz-box-sizing: border-box;
+		  box-sizing: border-box;
+		  background: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698394-icon-130-cloud-upload-512.png') center center no-repeat #e4e4e4;
+		  border-radius: 30px;
+		  background-size: 40px 40px;
+		}
+
+	</style>
+</head>
+<body>
+
+<div class="container">
+	<form id="formUploadImage" method="POST" enctype="multipart/form-data">
+		<center><button id="lblPrediction" class="" disabled>... prediction ...</button></center>
+		<center><div class="lytUploadImage"><img style="border-radius: 10px;border: 3px solid white;" id="img" src="static/picture.png" width="224" height="224"></div></center>
+		<center><input onchange="document.getElementById('img').src = window.URL.createObjectURL(this.files[0])" class="file btnUpload" type="file" name="photo" id="photo"></button></center>
+
+		<div class="footer">
+		  <center><input type="submit" id="btnPredict" class="" value="predict"></input></center>
+		  <center><p id="lblFooter">INVENTOR'S Inc.</p></center>
+		</div>
+	</form>
+</div>
+
+<!--Error Modal -->
+		<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-sm" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title text-danger" id="exampleModalLongTitle">Error</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        Chest X-Ray Image Not Found!
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+</body>
+</html>

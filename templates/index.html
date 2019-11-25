@@ -1,0 +1,47 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+	<p>Homepage {{image_name}}</p>
+</body>
+</html>
+ -->
+
+<div class="file-upload-wrapper">
+   <input type="file" id="input-file-now-custom-2" class="file-upload"
+  data-height="500" />
+</div>
+
+<!-- {% extends "bootstrap/base.html" %}
+
+{% block content%}
+<h1>Upload</h1>
+	
+	<div>
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		  <label class="btn btn-primary active">
+		    <input type="radio" name="options" id="option1" autocomplete="off" checked> Boots
+		  </label>
+		  <label class="btn btn-primary">
+		    <input type="radio" name="options" id="option2" autocomplete="off"> Shoes
+		  </label>
+		  <label class="btn btn-primary">
+		    <input type="radio" name="options" id="option3" autocomplete="off"> Feet
+		  </label>
+		</div>
+
+		<form action="/html/tags/html_form_tag_action.cfm" class="form-inline">
+			<label class="mr-sm-2 mb-0" for="photo">Choose Image</label>
+			<input type="file" class="form-control mr-sm-2 mb-2 mb-sm-0" id="photo" name="photo">
+			<button type="submit" class="btn btn-primary mt-2 mt-sm-0">Submit</button>
+		</form>
+	</div>
+{% endblock %} 
+ -->
+{% block script%}
+<script type="text/javascript">
+	$('.file-upload').file_upload();
+</script>
+{% endblock %}

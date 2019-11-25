@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Predict</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/bootstrap.min.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<!-- <script src="static/jquery.min.js"></script> -->
+	<script src="static/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function() { 
+           
+			$('#btnChoose').bind("click" , function () {
+	        	$('#photo').click();
+	    	});
+
+		    $('#btnUpload').click(function() {
+		        event.preventDefault();
+		        var form_data = new FormData($('#formUploadImage')[0]);
+		        $.ajax({
+		            type: 'POST',
+		            url: '/predict',
+		            data: form_data,
+		            contentType: false,
+		            processData: false,
+		            dataType: 'json'
+		        }).done(function(data, textStatus, jqXHR){
+		            $('#try').text(data["prediction"])
+		            console.log(data["prediction"])
+		            // alert(data["prediction"])
+		        }).fail(function(data){
+		        	$("#errorModal").modal({show:true});
+		            // alert("ERROR");
+		        });
+		    });
+        }); 
+	</script>
+
+	<style type="text/css">
+		html, body {
+    overflow: auto;
+			height: 100%;
+			width: 100%;
+}
+		body{
+		/*	background-image: url("static/tranq.jpg");
+			background-size: 100% 720px;
+			background-repeat: no-repeat;
+			background-attachment: fixed;*/
+			background-color: #e0e0e0;
+		}
+		input[type="file"] {
+		    display: none;
+		}
+		img{
+			border-radius: 10px;
+		}
+	</style>
+
+</head>
+<body class="body">
+	
+	<div class="container">
+
+		<div class="container" style="min-height:100% width:80%">
+			  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+			  	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<p id="try"></p>
+			  </div>
+		</div>
+		
+		<h1>Flask Intelligent App</h1>
+
+		<form id="formUploadImage" method="POST" enctype="multipart/form-data" class="form-inline">
+			<label for="file-upload" id="btnChoose" class="btn btn-outline-secondary">
+			    Upload Chest Xray Image
+			</label>
+
+		    <input type="file" onchange="document.getElementById('img').src = window.URL.createObjectURL(this.files[0])" id="photo" name="photo">
+			<input type="submit" class="btn btn-primary" id="btnUpload" value="Predict"></input>
+		</form>
+
+		<img id="img" src="static/no_frame.png" width="224" height="224">
+
+		<!--Error Modal -->
+		<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-sm" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title text-danger" id="exampleModalLongTitle">Error</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        Chest X-Ray Image Not Found!
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+	</div>
+
+	<div class="d-flex flex-column justify-content-between">
+	   <div></div>
+	   <div>bottom content</div>
+	</div>
+
+</body>
+</html>
